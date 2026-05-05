@@ -11,6 +11,13 @@
     "commit": "cz",
     "prepare": "husky"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md,mdx,yaml,yml}": "prettier --write"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/commitizen-emoji"
