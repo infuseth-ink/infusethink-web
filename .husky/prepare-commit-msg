@@ -1,0 +1,1 @@
+node .husky/gitmojify.js "$1" "$2"
