@@ -40,8 +40,8 @@ export default function PillarsSection() {
           Three pillars
         </p>
         <h2 className="font-display text-foreground mb-16 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-          We want your learning to be simple, effective, and fun — like sipping a perfect cup of
-          tea.
+          We want your learning to be simple, effective, healthy, and fun — like sipping a perfect
+          cup of tea.
         </h2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
