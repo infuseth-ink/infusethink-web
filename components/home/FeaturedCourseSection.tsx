@@ -34,9 +34,9 @@ const CHAPTERS = [
 
 export default function FeaturedCourseSection() {
   return (
-    <section className="bg-brand-parchment px-6 py-4">
+    <section className="bg-brand-parchment px-6 py-12">
       <div className="mx-auto max-inline-6xl">
-        <p className="text-brand-green mbe-4 text-center text-xs font-bold tracking-[0.2em] uppercase opacity-70">
+        <p className="text-brand-green mbe-4 text-center text-lg font-bold tracking-[0.2em] uppercase opacity-70">
           Featured course series
         </p>
         <h2 className="font-display text-foreground mbe-4 text-center text-3xl font-bold tracking-tight sm:text-4xl">

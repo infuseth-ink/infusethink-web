@@ -27,10 +27,10 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-[#0d1f12] px-6 py-24">
+    <section className="bg-[#0d1f12] px-6 py-16">
       <div className="mx-auto max-inline-6xl">
         {/* Section label */}
-        <p className="text-brand-gold/60 mbe-4 text-center text-xs font-bold tracking-[0.2em] uppercase">
+        <p className="text-brand-gold/60 mbe-4 text-center text-lg font-bold tracking-[0.2em] uppercase">
           What learners say
         </p>
         <h2 className="font-display mbe-16 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">

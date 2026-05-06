@@ -29,8 +29,8 @@ export default function Navbar() {
       }}
     >
       <nav className="mx-auto flex items-center gap-8 px-6 py-3 max-inline-6xl">
-        {/* Logo */}
-        <Link href="/" className="shrink-0">
+        {/* Logo + wordmark */}
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
             src="/logo-final-square.png"
             alt="infuseth.ink"
@@ -39,6 +39,9 @@ export default function Navbar() {
             className="rounded-md"
             priority
           />
+          <span className="font-display text-sm font-semibold tracking-tight text-white">
+            infuseth.ink
+          </span>
         </Link>
 
         {/* Nav links */}
