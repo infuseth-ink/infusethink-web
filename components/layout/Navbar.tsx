@@ -22,13 +22,13 @@ export default function Navbar() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+      className="fixed inset-x-0 inset-bs-0 z-50 transition-all duration-300"
       style={{
         backgroundColor: scrolled ? '#0d1f12' : 'transparent',
         borderBottom: scrolled ? '1px solid rgba(225,193,84,0.10)' : '1px solid transparent',
       }}
     >
-      <nav className="mx-auto flex max-w-6xl items-center gap-8 px-6 py-3">
+      <nav className="mx-auto flex items-center gap-8 px-6 py-3 max-inline-6xl">
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
