@@ -43,7 +43,7 @@ export default function HeroSection() {
       </div>
 
       {/* ── Hero illustration — desktop only ── */}
-      <div className="pointer-events-none absolute top-1/2 right-0 z-10 hidden h-[600px] w-[600px] -translate-y-2/5 md:block">
+      <div className="pointer-events-none absolute top-1/2 right-0 z-10 hidden h-150 w-150 -translate-y-2/5 md:block">
         <Image
           src="/images/hero-2.png"
           alt="A visual metaphor for learning — leaves, books, light"
