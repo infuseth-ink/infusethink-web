@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import Image from 'next/image';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface Pillar {
-  imageSrc: string
-  imageAlt: string
-  tagline: string
-  description: string
+  imageSrc: string;
+  imageAlt: string;
+  tagline: string;
+  description: string;
 }
 
 const pillars: Pillar[] = [
@@ -30,7 +30,7 @@ const pillars: Pillar[] = [
     description:
       'Your agentic assistant is always ready to help — absorb a lesson, ask pertinent questions, get quizzed, or accelerate brewing of your own lessons.',
   },
-]
+];
 
 export default function PillarsSection() {
   return (
@@ -78,5 +78,5 @@ export default function PillarsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
