@@ -6,6 +6,7 @@ interface Pillar {
   imageAlt: string;
   tagline: string;
   description: string;
+  priority?: boolean;
 }
 
 const pillars: Pillar[] = [
@@ -19,6 +20,7 @@ const pillars: Pillar[] = [
   {
     imageSrc: '/images/pillar-2.png',
     imageAlt: 'A tree of teacups representing skill progression',
+    priority: true,
     tagline: 'Boost with every cup',
     description:
       "Each lesson unlocks the next. Keep going and you'll reach Zen — real, working expertise in whatever you choose to master.",
@@ -45,7 +47,7 @@ export default function PillarsSection() {
         </h2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {pillars.map(({ imageSrc, imageAlt, tagline, description }) => (
+          {pillars.map(({ imageSrc, imageAlt, tagline, description, priority }) => (
             <Card
               key={tagline}
               className="group border-border bg-card relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -61,6 +63,7 @@ export default function PillarsSection() {
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover"
+                    priority={priority}
                   />
                 </div>
                 <CardTitle className="font-display text-foreground px-8 pbe-2 text-center text-xl/snug font-bold tracking-tight">
