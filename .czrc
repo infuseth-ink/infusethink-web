@@ -4,6 +4,7 @@
     "commitizenEmoji": {
       "symbol": true,
       "replaceTypes": true,
+      "conventionalFormat": true,
       "types": [
         {
           "emoji": "🐛",
