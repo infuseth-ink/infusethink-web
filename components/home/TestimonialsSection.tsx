@@ -28,12 +28,12 @@ const testimonials = [
 export default function TestimonialsSection() {
   return (
     <section className="bg-[#0d1f12] px-6 py-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-inline-6xl">
         {/* Section label */}
-        <p className="text-brand-gold/60 mb-4 text-center text-xs font-bold tracking-[0.2em] uppercase">
+        <p className="text-brand-gold/60 mbe-4 text-center text-xs font-bold tracking-[0.2em] uppercase">
           What learners say
         </p>
-        <h2 className="font-display mb-16 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <h2 className="font-display mbe-16 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Sipped by curious minds.
         </h2>
 
@@ -50,14 +50,12 @@ export default function TestimonialsSection() {
               {/* Quote mark */}
               <span className="font-display text-brand-gold/30 text-5xl leading-none">&ldquo;</span>
 
-              <blockquote className="flex-1 text-base leading-relaxed text-white/75">
-                {quote}
-              </blockquote>
+              <blockquote className="flex-1 text-base/relaxed text-white/75">{quote}</blockquote>
 
               <figcaption className="flex items-center gap-3">
                 {/* Avatar initials */}
                 <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-[#1a2e20]"
+                  className="flex shrink-0 items-center justify-center rounded-full text-sm font-bold text-[#1a2e20] block-10 inline-10"
                   style={{ backgroundColor: '#e1c154' }}
                 >
                   {avatar}
@@ -72,7 +70,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Disclaimer */}
-        <p className="mt-10 text-center text-xs text-white/25">
+        <p className="mbs-10 text-center text-xs text-white/25">
           ✦ Fictional testimonials — placeholder copy only, not real user reviews ✦
         </p>
       </div>

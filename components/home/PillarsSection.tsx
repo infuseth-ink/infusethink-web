@@ -35,11 +35,11 @@ const pillars: Pillar[] = [
 export default function PillarsSection() {
   return (
     <section className="bg-brand-parchment flex-1 px-6 py-24">
-      <div className="mx-auto max-w-6xl">
-        <p className="text-brand-green mb-4 text-center text-lg font-bold tracking-[0.2em] uppercase opacity-70">
+      <div className="mx-auto max-inline-6xl">
+        <p className="text-brand-green mbe-4 text-center text-lg font-bold tracking-[0.2em] uppercase opacity-70">
           Three pillars
         </p>
-        <h2 className="font-display text-foreground mb-16 text-center text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2 className="font-display text-foreground mbe-16 text-center text-3xl font-bold tracking-tight sm:text-4xl">
           We want your learning to be simple, effective, healthy, and fun — like sipping a perfect
           cup of tea.
         </h2>
@@ -48,13 +48,13 @@ export default function PillarsSection() {
           {pillars.map(({ imageSrc, imageAlt, tagline, description }) => (
             <Card
               key={tagline}
-              className="group bg-card border-border relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group border-border bg-card relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="bg-brand-green group-hover:bg-brand-gold h-1 w-full transition-colors duration-300" />
+              <div className="bg-brand-green group-hover:bg-brand-gold transition-colors duration-300 block-1 inline-full" />
 
               <CardHeader className="p-0">
                 {/* Image slot — place generated PNG at /public{imageSrc} */}
-                <div className="from-brand-green/10 to-brand-gold/15 relative mb-6 aspect-square w-full overflow-hidden bg-linear-to-br">
+                <div className="from-brand-green/10 to-brand-gold/15 relative mbe-6 aspect-square overflow-hidden bg-linear-to-br inline-full">
                   <Image
                     src={imageSrc}
                     alt={imageAlt}
@@ -63,13 +63,13 @@ export default function PillarsSection() {
                     className="object-cover"
                   />
                 </div>
-                <CardTitle className="font-display text-foreground px-8 pb-2 text-center text-xl leading-snug font-bold tracking-tight">
+                <CardTitle className="font-display text-foreground px-8 pbe-2 text-center text-xl/snug font-bold tracking-tight">
                   {tagline}
                 </CardTitle>
               </CardHeader>
 
-              <CardContent className="px-8 pt-2 pb-8">
-                <CardDescription className="text-muted-foreground text-center text-base leading-relaxed">
+              <CardContent className="px-8 pbs-2 pbe-8">
+                <CardDescription className="text-muted-foreground text-center text-base/relaxed">
                   {description}
                 </CardDescription>
               </CardContent>
