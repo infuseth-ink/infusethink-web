@@ -30,7 +30,7 @@ const CHAPTERS = [
     ],
     more: 27,
   },
-]
+];
 
 export default function FeaturedCourseSection() {
   return (
@@ -162,5 +162,5 @@ export default function FeaturedCourseSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

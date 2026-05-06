@@ -23,7 +23,7 @@ const testimonials = [
     role: 'Junior software engineer',
     avatar: 'AT',
   },
-]
+];
 
 export default function TestimonialsSection() {
   return (
@@ -75,5 +75,5 @@ export default function TestimonialsSection() {
         </p>
       </div>
     </section>
-  )
+  );
 }
