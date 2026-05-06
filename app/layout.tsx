@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={` ${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased block-full`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased block-full`}
     >
       <body className="flex flex-col min-block-full">
         <Navbar />
