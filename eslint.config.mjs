@@ -17,6 +17,12 @@ const eslintConfig = defineConfig([
         entryPoint: 'app/globals.css',
       },
     },
+
+    rules: {
+      // prettier-plugin-tailwindcss handles class sorting — disable the ESLint rules to avoid conflicts
+      'better-tailwindcss/enforce-consistent-class-order': 'off',
+      'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
+    },
   },
 
   // Root-level CJS config files use require() — allow it there
