@@ -96,7 +96,7 @@ jobs:
           # against the now-missing devDependencies.
           pnpm prune --prod --ignore-scripts
           # Zip standard .next/ output, excluding the build cache which is not needed at runtime.
-          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.ts \
+          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.js \
             --exclude ".next/cache/*"
 
       - name: Upload to Amplify (presigned S3 URL)
