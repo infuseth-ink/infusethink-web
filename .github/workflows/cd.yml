@@ -34,7 +34,7 @@ jobs:
             --output text \
             | tr '\t' '\n' \
             | while read -r JOB; do
-                [[ -z "$JOB" ]] && continue
+                [[ -z "$JOB" || "$JOB" == "None" ]] && continue
                 echo "Stopping in-progress job: $JOB"
                 aws amplify stop-job \
                   --app-id "${{ vars.AMPLIFY_APP_ID }}" \
