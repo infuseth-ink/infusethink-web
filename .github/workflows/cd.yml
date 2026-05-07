@@ -96,7 +96,7 @@ jobs:
           # against the now-missing devDependencies.
           pnpm prune --prod --ignore-scripts
           # Zip standard .next/ output, excluding the build cache which is not needed at runtime.
-          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.ts \
+          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.js \
             --exclude ".next/cache/*"
 
       - name: Upload to Amplify (presigned S3 URL)
@@ -116,3 +116,28 @@ jobs:
             --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
             --branch-name main \
             --job-id "$JOB_ID"
+
+      - name: Wait for Amplify deployment to complete
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 24); do
+            if ! STATUS=$(aws amplify get-job \
+              --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
+              --branch-name main \
+              --job-id "$JOB_ID" \
+              --query 'job.summary.status' \
+              --output text 2>&1); then
+              echo "Failed to get Amplify deployment status: $STATUS"
+              exit 1
+            fi
+            echo "Status: $STATUS"
+            case "$STATUS" in
+              SUCCEED)  echo "Deployment succeeded."; exit 0 ;;
+              FAILED)   echo "Deployment failed.";    exit 1 ;;
+              CANCELLING|CANCELLED) echo "Deployment cancelled."; exit 1 ;;
+            esac
+            echo "Still in progress — waiting 10s ($i/24)"
+            sleep 10
+          done
+          echo "Timed out waiting for deployment after 4 minutes."
+          exit 1
