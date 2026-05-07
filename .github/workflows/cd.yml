@@ -28,7 +28,7 @@ jobs:
       - name: Cancel any in-progress Amplify deployment
         run: |
           aws amplify list-jobs \
-            --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
             --branch-name main \
             --query 'jobSummaries[?status==`RUNNING`||status==`PENDING`||status==`PROVISIONING`||status==`CANCELLING`].jobId' \
             --output text \
