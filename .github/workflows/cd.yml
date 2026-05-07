@@ -55,21 +55,19 @@ jobs:
       - name: Cancel any in-progress Amplify deployment
         run: |
           # Amplify only allows one active deployment at a time.
-          # Find any running/pending job and stop it before creating a new one.
-          IN_PROGRESS=$(aws amplify list-jobs \
+          # Find all running/pending jobs and stop each one before creating a new deployment.
+          aws amplify list-jobs \
             --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
             --branch-name main \
             --output json \
             | jq -r '.jobSummaries[] | select(.status == "RUNNING" or .status == "PENDING") | .jobId' \
-            | head -n1)
-
-          if [ -n "$IN_PROGRESS" ]; then
-            echo "Stopping in-progress job: $IN_PROGRESS"
-            aws amplify stop-job \
-              --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
-              --branch-name main \
-              --job-id "$IN_PROGRESS"
-          fi
+            | while read -r JOB; do
+                echo "Stopping in-progress job: $JOB"
+                aws amplify stop-job \
+                  --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
+                  --branch-name main \
+                  --job-id "$JOB"
+              done
 
       - name: Create Amplify deployment
         run: |
