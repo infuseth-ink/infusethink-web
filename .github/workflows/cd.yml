@@ -73,9 +73,11 @@ jobs:
 
       - name: Package build output
         run: |
-          # No output:standalone in next.config.ts — zip the standard .next/ output.
-          # Include node_modules so Amplify WEB_COMPUTE has all runtime dependencies.
-          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.ts
+          # Prune to production dependencies only — removes devDependencies from node_modules.
+          pnpm prune --prod
+          # Zip standard .next/ output, excluding the build cache which is not needed at runtime.
+          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.ts \
+            --exclude ".next/cache/*"
 
       - name: Upload to Amplify (presigned S3 URL)
         run: |
