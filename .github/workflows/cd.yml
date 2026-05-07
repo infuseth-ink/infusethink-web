@@ -29,7 +29,7 @@ jobs:
         run: |
           set -euo pipefail
           JOBS=$(aws amplify list-jobs \
-            --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
             --branch-name main \
             --query 'jobSummaries[?status==`RUNNING`||status==`PENDING`||status==`PROVISIONING`||status==`CANCELLING`].jobId' \
             --output text)
@@ -38,7 +38,7 @@ jobs:
             [[ -z "$JOB" || "$JOB" == "None" ]] && continue
             echo "Stopping in-progress job: $JOB"
             aws amplify stop-job \
-              --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+              --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
               --branch-name main \
               --job-id "$JOB"
           done < <(echo "$JOBS" | tr '\t' '\n')
@@ -46,7 +46,7 @@ jobs:
       - name: Trigger Amplify build
         run: |
           JOB_ID=$(aws amplify start-job \
-            --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
             --branch-name main \
             --job-type RELEASE \
             --query 'jobSummary.jobId' \
@@ -58,7 +58,7 @@ jobs:
           set -euo pipefail
           for i in $(seq 1 60); do
             if ! STATUS=$(aws amplify get-job \
-              --app-id "${{ vars.AMPLIFY_APP_ID }}" \
+              --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
               --branch-name main \
               --job-id "$JOB_ID" \
               --query 'job.summary.status' \
