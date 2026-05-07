@@ -74,7 +74,9 @@ jobs:
       - name: Package build output
         run: |
           # Prune to production dependencies only — removes devDependencies from node_modules.
-          pnpm prune --prod
+          # --ignore-scripts prevents lifecycle scripts (e.g. husky prepare) from running
+          # against the now-missing devDependencies.
+          pnpm prune --prod --ignore-scripts
           # Zip standard .next/ output, excluding the build cache which is not needed at runtime.
           zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.ts \
             --exclude ".next/cache/*"
