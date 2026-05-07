@@ -59,8 +59,9 @@ jobs:
           aws amplify list-jobs \
             --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
             --branch-name main \
-            --output json \
-            | jq -r '.jobSummaries[] | select(.status == "RUNNING" or .status == "PENDING") | .jobId' \
+            --query 'jobSummaries[?status==`RUNNING`||status==`PENDING`].jobId' \
+            --output text \
+            | tr '\t' '\n' \
             | while read -r JOB; do
                 echo "Stopping in-progress job: $JOB"
                 aws amplify stop-job \
