@@ -119,13 +119,17 @@ jobs:
 
       - name: Wait for Amplify deployment to complete
         run: |
+          set -euo pipefail
           for i in $(seq 1 24); do
-            STATUS=$(aws amplify get-job \
+            if ! STATUS=$(aws amplify get-job \
               --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
               --branch-name main \
               --job-id "$JOB_ID" \
               --query 'job.summary.status' \
-              --output text)
+              --output text 2>&1); then
+              echo "Failed to get Amplify deployment status: $STATUS"
+              exit 1
+            fi
             echo "Status: $STATUS"
             case "$STATUS" in
               SUCCEED)  echo "Deployment succeeded."; exit 0 ;;
