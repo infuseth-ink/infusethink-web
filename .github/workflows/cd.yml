@@ -1,12 +1,10 @@
 name: Deploy — Staging
 
 on:
-  # Run only after CI completes on main — job condition below enforces success
   workflow_run:
     workflows: [CI]
     types: [completed]
     branches: [main]
-  # Allow manual deploys (bypasses workflow_run gate intentionally)
   workflow_dispatch:
 
 jobs:
@@ -14,38 +12,13 @@ jobs:
     name: Deploy to Amplify (staging)
     runs-on: ubuntu-latest
     environment: staging
-    # For workflow_run: only proceed when CI passed.
-    # For workflow_dispatch: always allow.
     if: >-
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
-
     permissions:
-      id-token: write # required for OIDC token exchange
+      id-token: write
       contents: read
-
     steps:
-      - uses: actions/checkout@v4
-        with:
-          # workflow_run events check out the workflow ref, not the triggering commit —
-          # pin to the SHA that triggered the CI run when available.
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
-
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -54,75 +27,37 @@ jobs:
 
       - name: Cancel any in-progress Amplify deployment
         run: |
-          # Amplify only allows one active deployment at a time.
-          # Find all running/pending jobs and stop each one before creating a new deployment.
           aws amplify list-jobs \
-            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
+            --app-id "${{ vars.AMPLIFY_APP_ID }}" \
             --branch-name main \
             --query 'jobSummaries[?status==`RUNNING`||status==`PENDING`].jobId' \
             --output text \
             | tr '\t' '\n' \
             | while read -r JOB; do
+                [[ -z "$JOB" ]] && continue
                 echo "Stopping in-progress job: $JOB"
                 aws amplify stop-job \
-                  --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
+                  --app-id "${{ vars.AMPLIFY_APP_ID }}" \
                   --branch-name main \
                   --job-id "$JOB"
               done
 
-      - name: Create Amplify deployment
+      - name: Trigger Amplify build
         run: |
-          # Capture the full response without printing it
-          RESPONSE=$(aws amplify create-deployment \
-            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
+          JOB_ID=$(aws amplify start-job \
+            --app-id "${{ vars.AMPLIFY_APP_ID }}" \
             --branch-name main \
-            --output json)
-
-          JOB_ID=$(echo "$RESPONSE" | jq -r '.jobId')
-          ZIP_UPLOAD_URL=$(echo "$RESPONSE" | jq -r '.zipUploadUrl')
-
-          # Mask the presigned URL immediately — any subsequent log line containing
-          # this value will be redacted. Must be called before writing to GITHUB_ENV.
-          echo "::add-mask::$ZIP_UPLOAD_URL"
-
-          # Write to env — GHA does not echo GITHUB_ENV assignments to logs
+            --job-type RELEASE \
+            --query 'jobSummary.jobId' \
+            --output text)
           echo "JOB_ID=$JOB_ID" >> "$GITHUB_ENV"
-          echo "ZIP_UPLOAD_URL=$ZIP_UPLOAD_URL" >> "$GITHUB_ENV"
-
-      - name: Package build output
-        run: |
-          # Prune to production dependencies only — removes devDependencies from node_modules.
-          # --ignore-scripts prevents lifecycle scripts (e.g. husky prepare) from running
-          # against the now-missing devDependencies.
-          pnpm prune --prod --ignore-scripts
-          # Zip standard .next/ output, excluding the build cache which is not needed at runtime.
-          zip -r deploy.zip .next/ node_modules/ public/ package.json next.config.js \
-            --exclude ".next/cache/*"
-
-      - name: Upload to Amplify (presigned S3 URL)
-        run: |
-          # PUT directly to the S3 presigned URL.
-          # Do NOT add AWS auth headers — the URL is self-authenticating.
-          # -o /dev/null suppresses any response body from appearing in logs.
-          curl --fail --silent --show-error \
-            -X PUT \
-            -T deploy.zip \
-            -o /dev/null \
-            "$ZIP_UPLOAD_URL"
-
-      - name: Start Amplify deployment
-        run: |
-          aws amplify start-deployment \
-            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
-            --branch-name main \
-            --job-id "$JOB_ID"
 
       - name: Wait for Amplify deployment to complete
         run: |
           set -euo pipefail
-          for i in $(seq 1 24); do
+          for i in $(seq 1 60); do
             if ! STATUS=$(aws amplify get-job \
-              --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
+              --app-id "${{ vars.AMPLIFY_APP_ID }}" \
               --branch-name main \
               --job-id "$JOB_ID" \
               --query 'job.summary.status' \
@@ -136,8 +71,8 @@ jobs:
               FAILED)   echo "Deployment failed.";    exit 1 ;;
               CANCELLING|CANCELLED) echo "Deployment cancelled."; exit 1 ;;
             esac
-            echo "Still in progress — waiting 10s ($i/24)"
-            sleep 10
+            echo "Still in progress — waiting 30s ($i/60)"
+            sleep 30
           done
-          echo "Timed out waiting for deployment after 4 minutes."
+          echo "Timed out waiting for deployment after 30 minutes."
           exit 1
