@@ -1,4 +1,5 @@
 {
+  "comment": "Tweaked heavily for consistency with https://github.com/ljnsn/cz-conventional-gitmoji used in BE and IaC",
   "path": "./node_modules/commitizen-emoji",
   "config": {
     "commitizenEmoji": {
