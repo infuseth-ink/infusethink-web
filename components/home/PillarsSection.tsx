@@ -1,6 +1,20 @@
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+/* PILLARS
+   Copy tweaks from previous version (design_handoff_v1_polish):
+   - Pillar 2 title: "Boost with every cup" → "Compounds into mastery."
+     The "cup" verb in the title duplicated the metaphor already carried
+     by the description ("Keep going and you'll reach Zen"). The new
+     title states the actual benefit; the body keeps the Zen mention.
+   - Pillar 3 title: "Never brew or sip alone" → "Never learn alone."
+     The original used both metaphor verbs in a four-word title — the
+     densest concentration of metaphor on the page. The direct version
+     is clearer and saves the brew/sip vocabulary for the description.
+   - Pillar 1 ("Teabag-sized lessons") and the section H2 are unchanged —
+     they're the metaphor's load-bearing introductions on this page.
+*/
+
 interface Pillar {
   imageSrc: string;
   imageAlt: string;
@@ -21,14 +35,14 @@ const pillars: Pillar[] = [
     imageSrc: '/images/pillar-2.png',
     imageAlt: 'A tree of teacups representing skill progression',
     priority: true,
-    tagline: 'Boost with every cup',
+    tagline: 'Compounds into mastery',
     description:
       "Each lesson unlocks the next. Keep going and you'll reach Zen — real, working expertise in whatever you choose to master.",
   },
   {
     imageSrc: '/images/pillar-3.png',
     imageAlt: 'A friendly character pouring tea with an AI sparkle',
-    tagline: 'Never brew or sip alone',
+    tagline: 'Never learn alone',
     description:
       'Your agentic assistant is always ready to help — absorb a lesson, ask pertinent questions, get quizzed, or accelerate brewing of your own lessons.',
   },

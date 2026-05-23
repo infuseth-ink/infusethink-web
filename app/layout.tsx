@@ -14,10 +14,17 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-const playfair = Fraunces({
-  variable: '--font-playfair',
+// CHANGED: opt into Fraunces' optical-size axis so the same family
+// renders tuned-for-display at headline sizes and tuned-for-text at
+// body sizes. This is the single biggest typographic win available
+// and was unused before. Also drops weight 900 — see HeroSection.tsx.
+//
+// CSS var renamed from --font-playfair to --font-fraunces (it loads
+// Fraunces; the old name was a holdover that confused readers).
+const fraunces = Fraunces({
+  variable: '--font-fraunces',
   subsets: ['latin'],
-  weight: ['400', '700', '900'],
+  axes: ['opsz'],
 });
 
 export const metadata: Metadata = {
@@ -34,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased block-full`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased block-full`}
     >
       <body className="flex flex-col min-block-full">
         <Navbar />

@@ -1,4 +1,15 @@
 // Hierarchy: Course → Chapters → Microlessons
+//
+// FEATURED COURSE
+// Copy tweaks from previous version (design_handoff_v1_polish):
+// - CTA on this LEARNER-facing card was "Start brewing →". In the
+//   product's own vocabulary, brewing = author. The button is for
+//   learners enrolling in the series — "Start the series →" matches
+//   the action. ("Start brewing" is reserved for the instructor CTA
+//   elsewhere on the site.)
+// - The "Every concept is a teabag — steep it, absorb it, move on"
+//   line is kept; it's the metaphor's clearest single-sentence
+//   articulation and earns its place here.
 const CHAPTERS = [
   {
     title: 'Coding Fundamentals',
@@ -108,10 +119,13 @@ export default function FeaturedCourseSection() {
 
               <div className="flex gap-3 pbs-2">
                 <button
-                  className="rounded-full px-6 py-2.5 text-sm font-bold transition-all hover:brightness-90"
+                  className="rounded-full px-6 py-2.5 text-sm font-bold transition-all hover:brightness-95"
                   style={{ backgroundColor: '#e1c154', color: '#1a2e20' }}
                 >
-                  Start brewing →
+                  Start the series{' '}
+                  <span data-arrow aria-hidden>
+                    →
+                  </span>
                 </button>
                 <button
                   className="rounded-full border px-6 py-2.5 text-sm font-semibold transition-all hover:bg-black/5"
