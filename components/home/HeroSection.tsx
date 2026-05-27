@@ -1,6 +1,23 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
+/* HERO
+   Changes from previous version (design_handoff_v1_polish):
+   - h1 dropped from font-black (Fraunces 900) to font-bold (700). Both
+     surfaces are now using Fraunces' opsz axis (see app/layout.tsx),
+     so the same family auto-tunes for display sizes — Black weight is
+     overkill and reads aggressive against the gentle tea metaphor.
+   - Subhead trimmed: the second sentence ("Sip your first cup — or
+     share your brew with the world") used two metaphor verbs in one
+     breath. The CTA pair (Start learning / Start teaching) already
+     does the audience pivot more clearly. Subhead is now one tight
+     value-prop sentence.
+   - CTA labels switched to sentence case ("Start learning" /
+     "Start teaching") to match the rest of the site's casing rule.
+   - Buttons swapped to the new `marketing` and `glass` variants so the
+     gold CTA carries a proper surface-adaptive shadow and the glass
+     CTA actually reads as actionable.
+*/
 export default function HeroSection() {
   return (
     <section
@@ -57,33 +74,23 @@ export default function HeroSection() {
 
       <div className="relative z-10 mx-auto px-6 pbs-28 pbe-20 inline-full max-inline-6xl lg:pbs-36 lg:pbe-28">
         <div className="flex flex-col gap-7 max-inline-xl lg:max-inline-2xl">
-          <h1 className="font-display text-3xl leading-[1.1] font-black whitespace-nowrap text-white sm:text-4xl lg:text-5xl">
+          <h1 className="font-display text-3xl leading-[1.1] font-bold whitespace-nowrap text-white sm:text-4xl lg:text-5xl">
             Infuse thoughts, <span className="text-brand-gold">ink futures.</span>
           </h1>
 
           <p className="text-lg/relaxed text-white/70 max-inline-lg sm:text-xl">
-            Learn anything in 3-minute microlessons that accumulate into real skills over time. Sip
-            your first cup — or share your brew with the world.
+            Learn anything in 3-minute microlessons that accumulate into real skills over time.
           </p>
 
           <div className="flex flex-wrap gap-4 pbs-2">
-            <Button
-              size="lg"
-              className="rounded-full px-8 py-3 text-base font-bold shadow-lg shadow-black/20 transition-all block-auto hover:scale-[1.03] hover:brightness-90"
-              style={{ backgroundColor: '#e1c154', color: '#1a2e20' }}
-            >
-              Start Learning
+            <Button variant="marketing" size="xl" shape="pill">
+              Start learning{' '}
+              <span data-arrow aria-hidden>
+                →
+              </span>
             </Button>
-            <Button
-              size="lg"
-              className="rounded-full px-8 py-3 text-base font-semibold backdrop-blur-sm transition-all block-auto hover:scale-[1.03] hover:brightness-110"
-              style={{
-                border: '1px solid rgba(255,255,255,0.35)',
-                color: 'white',
-                backgroundColor: 'rgba(255,255,255,0.08)',
-              }}
-            >
-              Start Teaching
+            <Button variant="glass" size="xl" shape="pill">
+              Start teaching
             </Button>
           </div>
         </div>
