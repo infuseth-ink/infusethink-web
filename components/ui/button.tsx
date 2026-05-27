@@ -166,6 +166,7 @@ function Button({
   size = 'default',
   shape = 'default',
   loading = false,
+  disabled,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants> & { loading?: boolean }) {
   return (
@@ -173,6 +174,7 @@ function Button({
       data-slot="button"
       data-loading={loading || undefined}
       aria-busy={loading || undefined}
+      disabled={loading || disabled}
       className={cn(buttonVariants({ variant, size, shape, className }))}
       {...props}
     />
