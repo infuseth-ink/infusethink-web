@@ -127,7 +127,6 @@ const buttonVariants = cva(
         /* NEW: dedicated marketing size for hero CTAs. */
         xl: `
           gap-2 px-8 block-14 text-base font-bold
-          rounded-full
           has-data-[icon=inline-end]:pe-5
           has-data-[icon=inline-start]:ps-5
         `,
