@@ -8,6 +8,7 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "nativewind": "^4",
     "typescript": "^5"
   }
 }
