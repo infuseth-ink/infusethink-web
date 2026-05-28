@@ -1,38 +1,30 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-
-@custom-variant dark (&:is(.dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ─── Brand palette — SSOT ──────────────────────────────────────────────── */
 :root {
   /* Brand primitives */
   --brand-green: #47905f;
-  --brand-green-hover: #3d7e52; /* NEW: true 10% hover shift on primary */
-  --brand-green-dark: #2f6341; /* darker green for tag TEXT on tinted bg (kept) */
+  --brand-green-hover: #3d7e52;
+  --brand-green-dark: #2f6341;
   --brand-gold: #e1c154;
-  --brand-gold-hover: #d4b242; /* NEW: true 10% hover shift on secondary */
-  --brand-gold-dark: #c9a83d; /* kept for compatibility */
+  --brand-gold-hover: #d4b242;
+  --brand-gold-dark: #c9a83d;
   --brand-parchment: #f6f0dd;
-  --brand-card: #fbf6e7; /* WARMER: was #fffdf5 — gives cards real contrast against parchment */
+  --brand-card: #fbf6e7;
 
-  /* ── Semantic status colors (NEW) ──────────────────────────────────────
-     Tuned to sit naturally inside the warm brand palette — no cold-blue
-     info or fire-engine red. */
-  --success: #5a8f4a; /* leaf-green, deliberately distinct from --brand-green */
+  /* ── Semantic status colors ─────────────────────────────────────────── */
+  --success: #5a8f4a;
   --success-fg: #ffffff;
-  --warning: #d49431; /* burnt amber, distinct from --brand-gold */
+  --warning: #d49431;
   --warning-fg: #2b1d05;
-  --info: #5a7b8f; /* desaturated steel-blue — only cold accent in the system */
+  --info: #5a7b8f;
   --info-fg: #ffffff;
-  --error: #b54637; /* warm terracotta red — sits in the parchment world */
+  --error: #b54637;
   --error-fg: #ffffff;
 
-  /* ── Warm neutrals (NEW) ──────────────────────────────────────────────
-     For dashboards, status pills, dividers — anywhere brand colors are
-     too loud. All tinted slightly warm so they live in the parchment world.
-     Named --warm-* (not --neutral-*) to avoid overriding Tailwind v4's
-     built-in neutral scale in @theme. */
+  /* ── Warm neutrals ──────────────────────────────────────────────────── */
   --warm-50: #faf7ed;
   --warm-100: #f2ecd6;
   --warm-200: #e3dcc1;
@@ -45,7 +37,7 @@
   --warm-900: #14130a;
   --warm-950: #0a0905;
 
-  /* shadcn semantic tokens → brand primitives */
+  /* shadcn semantic tokens */
   --background: var(--brand-parchment);
   --foreground: #1a2e20;
   --card: var(--brand-card);
@@ -60,22 +52,19 @@
   --muted-foreground: #5a6b5e;
   --accent: var(--brand-gold);
   --accent-foreground: #1a2e20;
-  --destructive: var(--error); /* CHANGED: was stock oklch red — now in-brand terracotta */
+  --destructive: var(--error);
   --border: #d4ccb0;
   --input: #d4ccb0;
   --ring: var(--brand-green);
   --radius: 0.75rem;
 
-  /* ── Shadow recipes (NEW) — surface-adaptive ─────────────────────────
-     The same shadow recipe looks great on dark surfaces and disappears
-     on light ones. These two tokens let components pick the right one. */
+  /* ── Shadow recipes ─────────────────────────────────────────────────── */
   --shadow-on-light: 0 12px 24px -8px rgba(13, 31, 18, 0.22), 0 4px 8px -2px rgba(13, 31, 18, 0.1);
   --shadow-on-dark: 0 12px 24px -8px rgba(0, 0, 0, 0.55), 0 4px 8px -2px rgba(0, 0, 0, 0.3);
   --shadow-card: 0 1px 3px rgba(26, 46, 32, 0.05), 0 1px 2px rgba(26, 46, 32, 0.04);
   --shadow-card-hover:
     0 16px 32px -10px rgba(26, 46, 32, 0.2), 0 6px 12px -4px rgba(26, 46, 32, 0.1);
 
-  /* chart / sidebar — keep neutral */
   --chart-1: var(--brand-green);
   --chart-2: var(--brand-gold);
   --chart-3: oklch(0.439 0 0);
@@ -91,17 +80,15 @@
   --sidebar-ring: var(--brand-green);
 }
 
-/* ─── Dark mode ─────────────────────────────────────────────────────────
-   NEW: tokens defined so .dark applied to <html> swaps the palette.
-   Built on top of --brand-green-night, the existing hero/footer color. */
+/* ─── Dark mode ─────────────────────────────────────────────────────────── */
 .dark {
-  --background: #0d1f12; /* the existing night-brew */
-  --foreground: #f0e9cf; /* warm parchment text — not pure white */
-  --card: #14291a; /* slightly lighter than bg */
+  --background: #0d1f12;
+  --foreground: #f0e9cf;
+  --card: #14291a;
   --card-foreground: #f0e9cf;
   --popover: #14291a;
   --popover-foreground: #f0e9cf;
-  --primary: var(--brand-gold); /* on dark, GOLD becomes primary action */
+  --primary: var(--brand-gold);
   --primary-foreground: #1a2e20;
   --secondary: var(--brand-green);
   --secondary-foreground: #ffffff;
@@ -110,7 +97,7 @@
   --accent: var(--brand-gold);
   --accent-foreground: #1a2e20;
   --destructive: #d9614e;
-  --border: rgba(225, 193, 84, 0.12); /* hairline gold on dark */
+  --border: rgba(225, 193, 84, 0.12);
   --input: rgba(225, 193, 84, 0.18);
   --ring: var(--brand-gold);
 
@@ -127,83 +114,6 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(225, 193, 84, 0.12);
   --sidebar-ring: var(--brand-gold);
-}
-
-/* ─── Tailwind v4 @theme — map utilities to brand vars ─────────────────── */
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(
-    --font-fraunces
-  ); /* RENAMED: was --font-playfair (was lying — it loaded Fraunces) */
-
-  --color-brand-green: var(--brand-green);
-  --color-brand-green-hover: var(--brand-green-hover);
-  --color-brand-gold: var(--brand-gold);
-  --color-brand-gold-hover: var(--brand-gold-hover);
-  --color-brand-parchment: var(--brand-parchment);
-
-  /* semantic colors → utilities */
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-info: var(--info);
-  --color-error: var(--error);
-
-  --color-warm-50: var(--warm-50);
-  --color-warm-100: var(--warm-100);
-  --color-warm-200: var(--warm-200);
-  --color-warm-300: var(--warm-300);
-  --color-warm-400: var(--warm-400);
-  --color-warm-500: var(--warm-500);
-  --color-warm-600: var(--warm-600);
-  --color-warm-700: var(--warm-700);
-  --color-warm-800: var(--warm-800);
-  --color-warm-900: var(--warm-900);
-  --color-warm-950: var(--warm-950);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-
-  /* surface-adaptive shadow utilities */
-  --shadow-on-light: var(--shadow-on-light);
-  --shadow-on-dark: var(--shadow-on-dark);
 }
 
 @layer base {
