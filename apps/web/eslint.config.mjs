@@ -13,8 +13,8 @@ const eslintConfig = defineConfig([
 
     settings: {
       'better-tailwindcss': {
-        // Tailwind v4 CSS-based config entry point
-        entryPoint: 'app/globals.css',
+        // Tailwind v3 JS config (was app/globals.css for TW4 CSS-first config)
+        entryPoint: 'tailwind.config.js',
       },
     },
 
@@ -22,6 +22,9 @@ const eslintConfig = defineConfig([
       // prettier-plugin-tailwindcss handles class sorting — disable the ESLint rules to avoid conflicts
       'better-tailwindcss/enforce-consistent-class-order': 'off',
       'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
+      // shadcn components use TW4 logical-property classes (mbs-, inline-N, block-N, etc.)
+      // that TW3 doesn't know about. Re-enable in #25 once shadcn is replaced by gluestack.
+      'better-tailwindcss/no-unknown-classes': 'off',
     },
   },
 
