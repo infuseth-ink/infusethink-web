@@ -1,2 +1,2 @@
 pnpm exec lint-staged
-pnpm exec tsc --noEmit
+pnpm exec tsc --noEmit -p apps/web/tsconfig.json
