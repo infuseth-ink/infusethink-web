@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+// TEMPORARY: Tailwind v3 — required by gluestack v3 + NativeWind v4.
+// Revert to Tailwind v4 when migrating to gluestack v5 (NativeWind v5).
+// TW4 baseline: git show 5e8496e:apps/web/postcss.config.mjs (and globals.css)
 module.exports = {
   darkMode: ['selector', '.dark'],
   content: [
