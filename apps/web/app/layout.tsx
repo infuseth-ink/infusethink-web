@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Fraunces } from 'next/font/google';
 import Footer from '@/components/layout/Footer';
 import Navbar from '@/components/layout/Navbar';
+import { GluestackUIProvider } from '@infusethink/shared';
 import './globals.css';
 
 const geistSans = Geist({
@@ -41,12 +42,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased block-full`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} block-full antialiased`}
     >
-      <body className="flex flex-col min-block-full">
-        <Navbar />
-        {children}
-        <Footer />
+      <body className="min-block-full flex flex-col">
+        <GluestackUIProvider mode="light">
+          <Navbar />
+          {children}
+          <Footer />
+        </GluestackUIProvider>
       </body>
     </html>
   );
