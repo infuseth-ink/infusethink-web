@@ -8,7 +8,13 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "@types/react": "^19.2.15",
     "nativewind": "^4",
+    "react-native": "^0.85.3",
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@gluestack-ui/core": "^3.0.21",
+    "@gluestack-ui/utils": "^3.0.21"
   }
 }
