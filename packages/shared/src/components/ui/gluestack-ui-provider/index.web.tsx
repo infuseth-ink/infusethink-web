@@ -1,9 +1,10 @@
 'use client';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { config } from './config';
-import { OverlayProvider } from '@gluestack-ui/core/overlay/creator';
-import { ToastProvider } from '@gluestack-ui/core/toast/creator';
 import { setFlushStyles } from '@gluestack-ui/utils/nativewind-utils';
+// OverlayProvider / ToastProvider omitted — they pull in icon/creator →
+// react-native-svg → native-only Turbopack error. Re-add a web-compatible
+// overlay layer when modal/toast UI is needed.
 import { script } from './script';
 
 export type ModeType = 'light' | 'dark' | 'system';
@@ -59,9 +60,9 @@ export function GluestackUIProvider({
     if (mode !== 'system') return;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-    media.addListener(handleMediaQuery);
+    media.addEventListener('change', handleMediaQuery);
 
-    return () => media.removeListener(handleMediaQuery);
+    return () => media.removeEventListener('change', handleMediaQuery);
   }, [handleMediaQuery]);
 
   useSafeLayoutEffect(() => {
@@ -87,9 +88,7 @@ export function GluestackUIProvider({
           __html: `(${script.toString()})('${mode}')`,
         }}
       />
-      <OverlayProvider>
-        <ToastProvider>{props.children}</ToastProvider>
-      </OverlayProvider>
+      {props.children}
     </>
   );
 }
