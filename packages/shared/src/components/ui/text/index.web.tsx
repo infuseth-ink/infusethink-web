@@ -2,10 +2,7 @@ import React from 'react';
 import type { VariantProps } from '@gluestack-ui/utils/nativewind-utils';
 import { textStyle } from './styles';
 
-type ITextProps = React.ComponentProps<'span'> &
-  VariantProps<typeof textStyle> & {
-    ref?: React.Ref<HTMLSpanElement>;
-  };
+type ITextProps = React.ComponentProps<'span'> & VariantProps<typeof textStyle>;
 
 function Text({
   className,
@@ -19,7 +16,7 @@ function Text({
   highlight,
   ref,
   ...props
-}: ITextProps) {
+}: ITextProps & { ref?: React.Ref<HTMLSpanElement> }) {
   return (
     <span
       className={textStyle({

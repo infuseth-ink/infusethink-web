@@ -4,24 +4,23 @@ import type { VariantProps } from '@gluestack-ui/utils/nativewind-utils';
 import { Text as RNText } from 'react-native';
 import { textStyle } from './styles';
 
-type ITextProps = React.ComponentProps<typeof RNText> &
-  VariantProps<typeof textStyle> & {
-    ref?: React.Ref<React.ComponentRef<typeof RNText>>;
-  };
+type ITextProps = React.ComponentProps<typeof RNText> & VariantProps<typeof textStyle>;
 
-function Text({
-  className,
-  isTruncated,
-  bold,
-  underline,
-  strikeThrough,
-  size = 'md',
-  sub,
-  italic,
-  highlight,
+const Text = React.forwardRef<React.ComponentRef<typeof RNText>, ITextProps>(function Text(
+  {
+    className,
+    isTruncated,
+    bold,
+    underline,
+    strikeThrough,
+    size = 'md',
+    sub,
+    italic,
+    highlight,
+    ...props
+  },
   ref,
-  ...props
-}: ITextProps) {
+) {
   return (
     <RNText
       className={textStyle({
@@ -39,7 +38,7 @@ function Text({
       ref={ref}
     />
   );
-}
+});
 
 Text.displayName = 'Text';
 
