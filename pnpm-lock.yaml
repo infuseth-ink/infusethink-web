@@ -46,6 +46,15 @@ importers:
       '@base-ui/react':
         specifier: ^1.4.1
         version: 1.5.0(@types/react@19.2.15)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@gluestack-ui/core':
+        specifier: ^3.0.21
+        version: 3.0.21(35ee9f79ef0c69e79e1f8b00fc171703)
+      '@gluestack-ui/utils':
+        specifier: ^3.0.21
+        version: 3.0.21(@react-spectrum/provider@3.11.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react-native-web@0.21.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-native@0.85.3(@babel/core@7.29.7)(@react-native/metro-config@0.85.3(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.4))(react@19.2.4)(tailwindcss@3.4.19(yaml@2.9.0))
+      '@gluestack/ui-next-adapter':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@infusethink/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -67,6 +76,18 @@ importers:
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
+      react-native:
+        specifier: ^0.85.3
+        version: 0.85.3(@babel/core@7.29.7)(@react-native/metro-config@0.85.3(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.4)
+      react-native-safe-area-context:
+        specifier: ^5.8.0
+        version: 5.8.0(react-native@0.85.3(@babel/core@7.29.7)(@react-native/metro-config@0.85.3(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.4))(react@19.2.4)
+      react-native-svg:
+        specifier: ^15.15.5
+        version: 15.15.5(react-native@0.85.3(@babel/core@7.29.7)(@react-native/metro-config@0.85.3(@babel/core@7.29.7))(@types/react@19.2.15)(react@19.2.4))(react@19.2.4)
+      react-native-web:
+        specifier: ^0.21.2
+        version: 0.21.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.6.0
@@ -1064,6 +1085,13 @@ packages:
       react-native: '>=0.64.0'
       react-native-web: '>=0.19.0'
       tailwindcss: '>=3.0.0'
+
+  '@gluestack/ui-next-adapter@3.0.3':
+    resolution:
+      {
+        integrity: sha512-KqddPNq5YsTa9f4GQL4DcSEwbbfBWMahR1blj37Z7oJYLwPHF6aAVn00ZaOHI75lE4eh9KjIWMbyJAJ2h0x5/A==,
+      }
+    engines: { node: '>=16' }
 
   '@hono/node-server@1.19.14':
     resolution:
@@ -4584,6 +4612,12 @@ packages:
         integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==,
       }
     engines: { node: '>=10' }
+
+  find-yarn-workspace-root@2.0.0:
+    resolution:
+      {
+        integrity: sha512-1IMnbjt4KzsQfnhnzNd8wUEgXZ44IzZaZmnLYx7D5FZlaHt2gW20Cri8Q+E/t5tIj4+epTBub+2Zxu/vNILzqQ==,
+      }
 
   findup-sync@4.0.0:
     resolution:
@@ -9629,6 +9663,11 @@ snapshots:
       - '@react-spectrum/provider'
       - react-dom
 
+  '@gluestack/ui-next-adapter@3.0.3':
+    dependencies:
+      find-yarn-workspace-root: 2.0.0
+      fs-extra: 11.3.5
+
   '@hono/node-server@1.19.14(hono@4.12.23)':
     dependencies:
       hono: 4.12.23
@@ -12041,6 +12080,10 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+
+  find-yarn-workspace-root@2.0.0:
+    dependencies:
+      micromatch: 4.0.8
 
   findup-sync@4.0.0:
     dependencies:
