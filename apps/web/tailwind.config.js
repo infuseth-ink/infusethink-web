@@ -2,6 +2,54 @@
 // TEMPORARY: Tailwind v3 — required by gluestack v3 + NativeWind v4.
 // Revert to Tailwind v4 when migrating to gluestack v5 (NativeWind v5).
 // TW4 baseline: git show 5e8496e:apps/web/postcss.config.mjs (and globals.css)
+const plugin = require('tailwindcss/plugin');
+
+// Polyfills TW4's logical-property utilities that TW3 omits.
+// Naming convention matches TW4 exactly so no component edits are needed.
+const logicalPlugin = plugin(function ({ matchUtilities, theme }) {
+  const spacing = theme('spacing');
+  const inset = theme('inset');
+  const maxWidth = theme('maxWidth');
+  const sizes = { ...spacing, full: '100%', screen: '100vh', auto: 'auto' };
+  const inlineSizes = { ...spacing, full: '100%', screen: '100vw', auto: 'auto', ...maxWidth };
+
+  matchUtilities({ pbs: (v) => ({ 'padding-block-start': v }) }, { values: spacing });
+  matchUtilities({ pbe: (v) => ({ 'padding-block-end': v }) }, { values: spacing });
+  matchUtilities(
+    { mbs: (v) => ({ 'margin-block-start': v }) },
+    { values: spacing, supportsNegativeValues: true },
+  );
+  matchUtilities(
+    { mbe: (v) => ({ 'margin-block-end': v }) },
+    { values: spacing, supportsNegativeValues: true },
+  );
+  matchUtilities(
+    { 'inset-bs': (v) => ({ 'inset-block-start': v }) },
+    { values: inset, supportsNegativeValues: true },
+  );
+  matchUtilities(
+    { 'inset-be': (v) => ({ 'inset-block-end': v }) },
+    { values: inset, supportsNegativeValues: true },
+  );
+  // TW4 renamed TW3's start-*/end-* to inset-s-*/inset-e-* for inline-axis inset
+  matchUtilities(
+    { 'inset-s': (v) => ({ 'inset-inline-start': v }) },
+    { values: inset, supportsNegativeValues: true },
+  );
+  matchUtilities(
+    { 'inset-e': (v) => ({ 'inset-inline-end': v }) },
+    { values: inset, supportsNegativeValues: true },
+  );
+  // block-{n} = block-size (TW3 has no block-{n} utilities, so no collision)
+  matchUtilities({ block: (v) => ({ 'block-size': v }) }, { values: sizes });
+  // inline-{n} = inline-size (TW3's display utilities are bare `inline`, no -n suffix)
+  matchUtilities({ inline: (v) => ({ 'inline-size': v }) }, { values: inlineSizes });
+  matchUtilities({ 'min-block': (v) => ({ 'min-block-size': v }) }, { values: sizes });
+  matchUtilities({ 'max-block': (v) => ({ 'max-block-size': v }) }, { values: sizes });
+  matchUtilities({ 'min-inline': (v) => ({ 'min-inline-size': v }) }, { values: inlineSizes });
+  matchUtilities({ 'max-inline': (v) => ({ 'max-inline-size': v }) }, { values: maxWidth });
+});
+
 module.exports = {
   darkMode: ['selector', '.dark'],
   content: [
@@ -102,7 +150,20 @@ module.exports = {
         card: 'var(--shadow-card)',
         'card-hover': 'var(--shadow-card-hover)',
       },
+      // TW4 extends the spacing scale beyond TW3's default 96 cap
+      spacing: {
+        130: '32.5rem',
+        140: '35rem',
+        150: '37.5rem',
+      },
+      // TW4 includes fifth-fractions in translate; TW3 only ships halves/quarters
+      translate: {
+        '1/5': '20%',
+        '2/5': '40%',
+        '3/5': '60%',
+        '4/5': '80%',
+      },
     },
   },
-  plugins: [],
+  plugins: [logicalPlugin],
 };
