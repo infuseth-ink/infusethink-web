@@ -85,6 +85,11 @@ Then export the new component from `packages/shared/src/index.ts`.
 | Turborepo          | 2.9.16  |
 | pnpm               | 10.29.3 |
 
+## Tailwind v3 → v4 re-upgrade
+
+Tailwind was temporarily downgraded to v3 for Gluestack v3 / NativeWind v4 compatibility.
+Full re-upgrade steps when NativeWind v5 ships: [docs/tailwind-v4-upgrade.md](docs/tailwind-v4-upgrade.md)
+
 ## Not yet installed (optional Gluestack deps)
 
 - `react-native-reanimated` + `react-native-worklets` — needed for animated components (BottomSheet, Modal transitions, Skeleton). Add to both `packages/shared` and `apps/web` when required.

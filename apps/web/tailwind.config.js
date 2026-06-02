@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 // TEMPORARY: Tailwind v3 — required by gluestack v3 + NativeWind v4.
-// Revert to Tailwind v4 when migrating to gluestack v5 (NativeWind v5).
+// Re-upgrade path: docs/tailwind-v4-upgrade.md
 // TW4 baseline: git show 5e8496e:apps/web/postcss.config.mjs (and globals.css)
 const plugin = require('tailwindcss/plugin');
 
