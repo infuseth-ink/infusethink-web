@@ -202,9 +202,4 @@ function InputField({
   );
 }
 
-Input.displayName = 'Input';
-InputIcon.displayName = 'InputIcon';
-InputSlot.displayName = 'InputSlot';
-InputField.displayName = 'InputField';
-
 export { Input, InputField, InputIcon, InputSlot };

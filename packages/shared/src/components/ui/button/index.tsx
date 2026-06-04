@@ -397,10 +397,4 @@ function ButtonGroup({
   );
 }
 
-Button.displayName = 'Button';
-ButtonText.displayName = 'ButtonText';
-ButtonSpinner.displayName = 'ButtonSpinner';
-ButtonIcon.displayName = 'ButtonIcon';
-ButtonGroup.displayName = 'ButtonGroup';
-
 export { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup };
