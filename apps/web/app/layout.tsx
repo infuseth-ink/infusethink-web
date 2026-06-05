@@ -43,6 +43,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} block-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-block-full flex flex-col">
         <GluestackUIProvider mode="light">
