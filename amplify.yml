@@ -1,0 +1,22 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - corepack enable
+            - corepack prepare pnpm@10.29.3 --activate
+            - pnpm config set store-dir .pnpm-store
+            - pnpm install --frozen-lockfile
+        build:
+          commands:
+            - pnpm --filter infusethink-web build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - .pnpm-store/**/*
+          - .next/cache/**/*
+    appRoot: apps/web
