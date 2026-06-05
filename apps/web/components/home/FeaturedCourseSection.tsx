@@ -46,14 +46,14 @@ const CHAPTERS = [
 export default function FeaturedCourseSection() {
   return (
     <section className="bg-brand-parchment px-6 py-12">
-      <div className="mx-auto max-inline-6xl">
-        <p className="text-brand-green mbe-4 text-center text-lg font-bold tracking-[0.2em] uppercase opacity-70">
+      <div className="max-inline-6xl mx-auto">
+        <p className="text-brand-green mbe-4 text-center text-lg font-bold uppercase tracking-[0.2em] opacity-70">
           Featured course series
         </p>
         <h2 className="font-display text-foreground mbe-4 text-center text-3xl font-bold tracking-tight sm:text-4xl">
           Software Engineering with Python
         </h2>
-        <p className="text-muted-foreground mx-auto mbe-16 text-center text-base/relaxed max-inline-xl">
+        <p className="text-muted-foreground mbe-16 max-inline-xl mx-auto text-center text-base/relaxed">
           One language. No context switching. Go from writing your first function to shipping a real
           API — three minutes at a time. A web detour in JS/TS for web development, then back to
           Python for everything else.
@@ -117,7 +117,7 @@ export default function FeaturedCourseSection() {
                 </span>
               </div>
 
-              <div className="flex gap-3 pbs-2">
+              <div className="pbs-2 flex gap-3">
                 <button
                   className="rounded-full px-6 py-2.5 text-sm font-bold transition-all hover:brightness-95"
                   style={{ backgroundColor: '#e1c154', color: '#1a2e20' }}
@@ -138,7 +138,7 @@ export default function FeaturedCourseSection() {
 
             {/* Right: chapter → lesson hierarchy */}
             <div className="p-10 lg:p-14" style={{ borderLeft: '1px solid var(--border)' }}>
-              <p className="text-muted-foreground mbe-5 text-xs font-bold tracking-widest uppercase">
+              <p className="text-muted-foreground mbe-5 text-xs font-bold uppercase tracking-widest">
                 Series outline
               </p>
               <ol className="grid grid-cols-2 gap-6">
@@ -146,7 +146,7 @@ export default function FeaturedCourseSection() {
                   <li key={title}>
                     <p className="text-foreground mbe-2 flex items-center gap-2 text-sm font-semibold">
                       <span
-                        className="flex shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white block-5 inline-5"
+                        className="block-5 inline-5 flex shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white"
                         style={{ backgroundColor: 'var(--brand-green)' }}
                       >
                         {ci + 1}
@@ -159,11 +159,11 @@ export default function FeaturedCourseSection() {
                           key={lesson}
                           className="text-muted-foreground flex items-center gap-1.5 text-xs"
                         >
-                          <span className="bg-brand-gold/50 shrink-0 rounded-full block-1 inline-1" />
+                          <span className="bg-brand-gold/50 block-1 inline-1 shrink-0 rounded-full" />
                           {lesson}
                         </li>
                       ))}
-                      <li className="text-muted-foreground/50 ms-2.5 mbs-0.5 text-xs">
+                      <li className="text-muted-foreground mbs-0.5 ms-2.5 text-xs opacity-50">
                         +{more} more lessons
                       </li>
                     </ul>

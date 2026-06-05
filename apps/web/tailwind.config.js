@@ -65,9 +65,11 @@ module.exports = {
         display: ['var(--font-fraunces)'],
       },
       colors: {
-        'brand-green': 'var(--brand-green)',
+        'brand-green': ({ opacityValue }) =>
+          opacityValue !== undefined ? `rgba(71,144,95,${opacityValue})` : 'var(--brand-green)',
         'brand-green-hover': 'var(--brand-green-hover)',
-        'brand-gold': 'var(--brand-gold)',
+        'brand-gold': ({ opacityValue }) =>
+          opacityValue !== undefined ? `rgba(225,193,84,${opacityValue})` : 'var(--brand-gold)',
         'brand-gold-hover': 'var(--brand-gold-hover)',
         'brand-parchment': 'var(--brand-parchment)',
         success: 'var(--success)',
