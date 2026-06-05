@@ -7,6 +7,10 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
+  "peerDependencies": {
+    "nativewind": ">=4.0.0",
+    "react-native": ">=0.64.0"
+  },
   "devDependencies": {
     "@types/react": "^19.2.15",
     "nativewind": "^4",
