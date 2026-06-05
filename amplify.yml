@@ -11,8 +11,10 @@ applications:
         build:
           commands:
             - pnpm exec turbo build --filter=infusethink-web
+            - cp -r public .next/standalone/public
+            - cp -r .next/static .next/standalone/.next/static
       artifacts:
-        baseDirectory: .next
+        baseDirectory: .next/standalone
         files:
           - '**/*'
       cache:
