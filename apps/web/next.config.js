@@ -9,7 +9,6 @@ const nextConfig = {
     '@infusethink/shared',
     '@gluestack-ui/core',
     '@gluestack-ui/utils',
-    '@gluestack/ui-next-adapter',
     'nativewind',
     'react-native',
     'react-native-css-interop',
