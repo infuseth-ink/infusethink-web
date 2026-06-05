@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@infusethink/shared';
 
 /* PILLARS
    Copy tweaks from previous version (design_handoff_v1_polish):
@@ -51,8 +51,8 @@ const pillars: Pillar[] = [
 export default function PillarsSection() {
   return (
     <section className="bg-brand-parchment flex-1 px-6 py-24">
-      <div className="mx-auto max-inline-6xl">
-        <p className="text-brand-green mbe-4 text-center text-lg font-bold tracking-[0.2em] uppercase opacity-70">
+      <div className="max-inline-6xl mx-auto">
+        <p className="text-brand-green mbe-4 text-center text-lg font-bold uppercase tracking-[0.2em] opacity-70">
           Three pillars
         </p>
         <h2 className="font-display text-foreground mbe-16 text-center text-3xl font-bold tracking-tight sm:text-4xl">
@@ -64,13 +64,13 @@ export default function PillarsSection() {
           {pillars.map(({ imageSrc, imageAlt, tagline, description, priority }) => (
             <Card
               key={tagline}
-              className="group border-border bg-card relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="border-border bg-card group relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="bg-brand-green group-hover:bg-brand-gold transition-colors duration-300 block-1 inline-full" />
+              <div className="bg-brand-green group-hover:bg-brand-gold block-1 inline-full transition-colors duration-300" />
 
               <CardHeader className="p-0">
                 {/* Image slot — place generated PNG at /public{imageSrc} */}
-                <div className="from-brand-green/10 to-brand-gold/15 relative mbe-6 aspect-square overflow-hidden bg-linear-to-br inline-full">
+                <div className="from-brand-green/10 to-brand-gold/15 mbe-6 bg-linear-to-br inline-full relative aspect-square overflow-hidden">
                   <Image
                     src={imageSrc}
                     alt={imageAlt}
@@ -80,12 +80,12 @@ export default function PillarsSection() {
                     priority={priority}
                   />
                 </div>
-                <CardTitle className="font-display text-foreground px-8 pbe-2 text-center text-xl/snug font-bold tracking-tight">
+                <CardTitle className="font-display text-foreground pbe-2 px-8 text-center text-xl/snug font-bold tracking-tight">
                   {tagline}
                 </CardTitle>
               </CardHeader>
 
-              <CardContent className="px-8 pbs-2 pbe-8">
+              <CardContent className="pbs-2 pbe-8 px-8">
                 <CardDescription className="text-muted-foreground text-center text-base/relaxed">
                   {description}
                 </CardDescription>
