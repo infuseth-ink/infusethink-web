@@ -65,9 +65,19 @@ module.exports = {
         display: ['var(--font-fraunces)'],
       },
       colors: {
-        'brand-green': 'var(--brand-green)',
+        // TW3 wraps CSS-variable colors in rgb() for opacity modifiers, producing
+        // `rgb(#e1c154 / 0.6)` — invalid when the variable holds a hex string.
+        // Function form emits valid rgba() instead. Remove when upgrading to TW4,
+        // which uses color-mix() and accepts any valid CSS color format.
+        'brand-green': ({ opacityValue }) =>
+          opacityValue !== undefined
+            ? `rgba(var(--brand-green-rgb),${opacityValue})`
+            : 'var(--brand-green)',
         'brand-green-hover': 'var(--brand-green-hover)',
-        'brand-gold': 'var(--brand-gold)',
+        'brand-gold': ({ opacityValue }) =>
+          opacityValue !== undefined
+            ? `rgba(var(--brand-gold-rgb),${opacityValue})`
+            : 'var(--brand-gold)',
         'brand-gold-hover': 'var(--brand-gold-hover)',
         'brand-parchment': 'var(--brand-parchment)',
         success: 'var(--success)',
