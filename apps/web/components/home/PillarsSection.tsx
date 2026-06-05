@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@infusethink/shared';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@infuseth-ink/shared-ui';
 
 /* PILLARS
    Copy tweaks from previous version (design_handoff_v1_polish):

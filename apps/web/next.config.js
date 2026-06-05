@@ -6,7 +6,7 @@ const nextConfig = {
   // scanner fails when pnpm node-linker=hoisted empties apps/web/node_modules.
   // Declaring them explicitly makes the build independent of scanner behaviour.
   transpilePackages: [
-    '@infusethink/shared',
+    '@infuseth-ink/shared-ui',
     '@gluestack-ui/core',
     '@gluestack-ui/utils',
     'nativewind',

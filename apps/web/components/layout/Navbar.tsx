@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Button } from '@infusethink/shared';
+import { Button } from '@infuseth-ink/shared-ui';
 
 const NAV_LINKS = [
   { label: 'Learn', href: '/learn' },

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Fraunces } from 'next/font/google';
 import Footer from '@/components/layout/Footer';
 import Navbar from '@/components/layout/Navbar';
-import { GluestackUIProvider } from '@infusethink/shared';
+import { GluestackUIProvider } from '@infuseth-ink/shared-ui';
 import './globals.css';
 
 const geistSans = Geist({

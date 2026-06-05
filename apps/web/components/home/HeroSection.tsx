@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Button } from '@infusethink/shared';
+import { Button } from '@infuseth-ink/shared-ui';
 
 /* HERO
    Changes from previous version (design_handoff_v1_polish):
