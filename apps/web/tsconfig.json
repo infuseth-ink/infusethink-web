@@ -19,8 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@infuseth-ink/shared-ui": ["../../packages/shared/src/index.web.ts"]
+      "@/*": ["./*"]
     }
   },
   "include": [

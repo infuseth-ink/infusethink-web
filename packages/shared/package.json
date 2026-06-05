@@ -4,7 +4,10 @@
   "private": true,
   "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "react-native": "./src/index.ts",
+      "default": "./src/index.web.ts"
+    },
     "./lib/*": "./src/lib/*.ts"
   },
   "scripts": {
