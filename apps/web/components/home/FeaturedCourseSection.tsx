@@ -1,4 +1,4 @@
-import { Button } from '@infusethink/shared';
+import { Button } from '@infuseth-ink/shared-ui';
 
 // Hierarchy: Course → Chapters → Microlessons
 //

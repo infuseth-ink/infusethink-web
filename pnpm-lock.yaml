@@ -55,7 +55,7 @@ importers:
       '@gluestack/ui-next-adapter':
         specifier: ^3.0.3
         version: 3.0.3
-      '@infusethink/shared':
+      '@infuseth-ink/shared-ui':
         specifier: workspace:*
         version: link:../../packages/shared
       class-variance-authority:
