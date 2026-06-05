@@ -1,0 +1,24 @@
+{
+  "name": "@infusethink/shared",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "nativewind": ">=4.0.0",
+    "react-native": ">=0.64.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "nativewind": "^4",
+    "react-native": "^0.85.3",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@gluestack-ui/core": "^3.0.21",
+    "@gluestack-ui/utils": "^3.0.21"
+  }
+}

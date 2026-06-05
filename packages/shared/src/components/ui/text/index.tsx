@@ -1,0 +1,41 @@
+import React from 'react';
+
+import type { VariantProps } from '@gluestack-ui/utils/nativewind-utils';
+import { Text as RNText } from 'react-native';
+import { textStyle } from './styles';
+
+type TextProps = React.ComponentProps<typeof RNText> & VariantProps<typeof textStyle>;
+
+function Text({
+  className,
+  isTruncated,
+  bold,
+  underline,
+  strikeThrough,
+  size = 'md',
+  sub,
+  italic,
+  highlight,
+  ref,
+  ...props
+}: TextProps & { ref?: React.Ref<React.ComponentRef<typeof RNText>> }) {
+  return (
+    <RNText
+      className={textStyle({
+        isTruncated: isTruncated as boolean,
+        bold: bold as boolean,
+        underline: underline as boolean,
+        strikeThrough: strikeThrough as boolean,
+        size,
+        sub: sub as boolean,
+        italic: italic as boolean,
+        highlight: highlight as boolean,
+        class: className,
+      })}
+      {...props}
+      ref={ref}
+    />
+  );
+}
+
+export { Text };

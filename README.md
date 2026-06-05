@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# infuseth.ink — Frontend Monorepo
 
-## Getting Started
+pnpm workspace · Turborepo · Next.js 16 (Turbopack) · React 19 · Gluestack UI v3 · React Native Web
 
-First, run the development server:
+## Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+apps/
+  web/          Next.js 16 app (Turbopack)
+packages/
+  shared/       Cross-platform UI components (React Native + Web)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Getting started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+pnpm dev          # all apps
+pnpm dev:web      # web only
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How Gluestack works here
 
-## Learn More
+Gluestack v3 is React Native first. Every component (`Button`, `Text`, `Input`) is built on RN primitives (`Pressable`, `Text`, `View`). On web, `react-native` is aliased to `react-native-web`, which shims those primitives as semantic HTML with full ARIA support.
 
-To learn more about Next.js, take a look at the following resources:
+### The alias chain
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+react-native  →  react-native-web  →  <div>, <span>, <input>, …
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`withGluestackUI` in `apps/web/next.config.js` sets this alias in Turbopack and Webpack, and adds `.next15.tsx > .web.tsx > .tsx` to `resolveExtensions` so platform overrides are picked up automatically.
 
-## Deploy on Vercel
+### `packages/shared` layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/components/ui/
+  gluestack-ui-provider/
+    index.tsx           # native (Expo / RN CLI)
+    index.web.tsx       # web / Vite / CRA
+    index.next15.tsx    # Next.js 15+ (SSR-aware, injected via resolveExtensions)
+    config.ts           # CSS variable tokens via nativewind vars()
+    script.ts           # inline script for dark-mode flash prevention
+  button/index.tsx      # native impl — resolves to RNW on web via alias
+  text/
+    index.tsx           # native
+    index.web.tsx       # web override (React 19 ref-as-prop)
+  input/index.tsx       # native
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Components are scaffolded by the Gluestack CLI (`npx gluestack-ui init` / `add`) and live in `packages/shared` so they're usable by both mobile and web apps.
+
+### Why `transpilePackages` has manual entries
+
+`withGluestackUI` auto-discovers gluestack and react-native packages via `node_modules` scanning, but the scanner uses `find-yarn-workspace-root` which doesn't recognise pnpm workspaces (`pnpm-workspace.yaml` vs `workspaces` in `package.json`). Two workarounds:
+
+1. **Direct deps in `apps/web`** — `@gluestack-ui/core`, `@gluestack-ui/utils`, `react-native`, `react-native-web`, `react-native-svg`, `react-native-safe-area-context` are all listed in `apps/web/package.json` so pnpm places symlinks in `apps/web/node_modules` where the scanner can see them.
+2. **Explicit entry** — `react-native-css-interop` (nativewind's JSX runtime, an indirect dep) is added manually to `transpilePackages` in `next.config.js` because it ships a raw JSX expression (`<react-native-css-interop-jsx-pragma-check/>`) that Turbopack must compile.
+
+### Adding new Gluestack components
+
+Run from the monorepo root (uses expect to answer the path prompt):
+
+```bash
+cd packages/shared && npx gluestack-ui add <component> --use-pnpm --template-only
+```
+
+Or with the `expect` helper that was used during initial setup:
+
+```bash
+/tmp/glue_add.exp   # see session history
+```
+
+Then export the new component from `packages/shared/src/index.ts`.
+
+## Version snapshot
+
+| Package            | Version |
+| ------------------ | ------- |
+| Next.js            | 16.2.4  |
+| React              | 19.2.4  |
+| @gluestack-ui/core | 3.0.21  |
+| nativewind         | 4.2.4   |
+| react-native-web   | 0.21.2  |
+| Turborepo          | 2.9.16  |
+| pnpm               | 10.29.3 |
+
+## Tailwind v3 → v4 re-upgrade
+
+Tailwind was temporarily downgraded to v3 for Gluestack v3 / NativeWind v4 compatibility.
+Full re-upgrade steps when NativeWind v5 ships: [docs/tailwind-v4-upgrade.md](docs/tailwind-v4-upgrade.md)
+
+## Not yet installed (optional Gluestack deps)
+
+- `react-native-reanimated` + `react-native-worklets` — needed for animated components (BottomSheet, Modal transitions, Skeleton). Add to both `packages/shared` and `apps/web` when required.
+- `@legendapp/motion` — alternative animation layer used by some Gluestack components.

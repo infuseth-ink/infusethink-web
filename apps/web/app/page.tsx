@@ -5,7 +5,7 @@ import TestimonialsSection from '@/components/home/TestimonialsSection';
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-block-screen">
+    <main className="min-block-screen flex flex-col">
       <HeroSection />
       <PillarsSection />
       <FeaturedCourseSection />
