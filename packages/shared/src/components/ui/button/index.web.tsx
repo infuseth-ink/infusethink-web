@@ -1,12 +1,8 @@
 'use client';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import React from 'react';
 
-function cn(...inputs: Parameters<typeof clsx>) {
-  return twMerge(clsx(...inputs));
-}
+import { cn } from '../../../lib/utils';
 
 /* ─────────────────────────────────────────────────────────────────────
    WEB BUTTON — overrides the Gluestack/Pressable native button.
