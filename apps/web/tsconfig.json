@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@infusethink/shared": ["../../packages/shared/src/index.web.ts"]
     }
   },
   "include": [

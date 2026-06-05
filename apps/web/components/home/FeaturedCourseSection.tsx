@@ -1,3 +1,5 @@
+import { Button } from '@infusethink/shared';
+
 // Hierarchy: Course → Chapters → Microlessons
 //
 // FEATURED COURSE
@@ -118,21 +120,15 @@ export default function FeaturedCourseSection() {
               </div>
 
               <div className="pbs-2 flex gap-3">
-                <button
-                  className="rounded-full px-6 py-2.5 text-sm font-bold transition-all hover:brightness-95"
-                  style={{ backgroundColor: '#e1c154', color: '#1a2e20' }}
-                >
+                <Button variant="marketing" shape="pill" size="sm">
                   Start the series{' '}
                   <span data-arrow aria-hidden>
                     →
                   </span>
-                </button>
-                <button
-                  className="rounded-full border px-6 py-2.5 text-sm font-semibold transition-all hover:bg-black/5"
-                  style={{ borderColor: 'var(--border)', color: 'var(--foreground)' }}
-                >
+                </Button>
+                <Button variant="outline" shape="pill" size="sm">
                   Preview lessons
-                </button>
+                </Button>
               </div>
             </div>
 

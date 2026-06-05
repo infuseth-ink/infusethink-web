@@ -1,25 +1,14 @@
-import { Button as ButtonPrimitive } from '@base-ui/react/button';
+'use client';
 import { cva, type VariantProps } from 'class-variance-authority';
+import React from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '../../../lib/utils';
 
 /* ─────────────────────────────────────────────────────────────────────
-   BUTTON
-   Changes from the previous version (see design_handoff_v1_polish/README):
-   - Dropped hover:scale — pill buttons that scale on hover read as
-     tooltips, not press responses. Replaced with brightness + a 1px
-     :active translateY (kept) for honest tactile feedback.
-   - Surface-adaptive shadows: `marketing` variants use --shadow-on-light
-     (deep green) and --shadow-on-dark (near-black) instead of one recipe
-     that vanishes on parchment.
-   - Retuned size scale upward (sm 36 / md 40 / lg 48 / xl 56). Old scale
-     was tuned for a dashboard, mismatched with marketing CTAs.
-   - Added `loading` data-attribute styling.
-   - `[&_[data-arrow]]:group-hover:translate-x-0.5` so any `<span
-     data-arrow>→</span>` inside a button gets a tiny on-hover shift —
-     signature animation, replaces the scale tic.
-   - Ghost variant border alpha bumped from 0.35 → 0.55 so the secondary
-     hero CTA actually reads as an actionable element.
+   WEB BUTTON — overrides the Gluestack/Pressable native button.
+   Uses a plain <button> element (no Base UI dep) with CVA variants.
+   Surface-adaptive marketing/glass variants are web-only (backdrop-blur,
+   CSS shadows). On native the Gluestack button/index.tsx handles rendering.
    ───────────────────────────────────────────────────────────────────── */
 const buttonVariants = cva(
   `
@@ -47,9 +36,6 @@ const buttonVariants = cva(
           hover:brightness-95
           [a]:hover:bg-primary/80
         `,
-        /* Primary marketing CTA — gold on any surface, with a tinted
-           drop shadow that adapts to background. The shadow class names
-           below are applied via the size variant. */
         marketing: `
           bg-brand-gold text-foreground font-bold
           hover:brightness-95
@@ -68,8 +54,6 @@ const buttonVariants = cva(
           hover:brightness-95
           aria-expanded:bg-secondary aria-expanded:text-secondary-foreground
         `,
-        /* Glass CTA — only used on dark surfaces (hero, testimonials).
-           Border alpha bumped to 0.55 so it reads as actionable. */
         ghost: `
           hover:bg-muted hover:text-foreground
           aria-expanded:bg-muted aria-expanded:text-foreground
@@ -94,9 +78,6 @@ const buttonVariants = cva(
         `,
       },
       size: {
-        /* RETUNED: every size went up. Old defaults were 24/28/32/36 —
-           dashboard scale. New scale is marketing-friendly without
-           being clumsy in tight UIs. */
         default: `
           gap-1.5 px-3 block-10
           has-data-[icon=inline-end]:pe-2
@@ -124,7 +105,6 @@ const buttonVariants = cva(
           has-data-[icon=inline-end]:pe-3
           has-data-[icon=inline-start]:ps-3
         `,
-        /* NEW: dedicated marketing size for hero CTAs. */
         xl: `
           gap-2 px-8 block-14 text-base font-bold
           has-data-[icon=inline-end]:pe-5
@@ -143,9 +123,6 @@ const buttonVariants = cva(
         `,
         'icon-lg': 'block-12 inline-12',
       },
-      /* NEW: pill shape, opt-in via prop. The codebase reaches for
-         `rounded-full` ad-hoc on every marketing button — this codifies
-         the pattern as a variant. */
       shape: {
         default: '',
         pill: 'rounded-full',
@@ -159,6 +136,9 @@ const buttonVariants = cva(
   },
 );
 
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & { loading?: boolean };
+
 function Button({
   className,
   variant = 'default',
@@ -167,9 +147,10 @@ function Button({
   loading = false,
   disabled,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants> & { loading?: boolean }) {
+}: ButtonProps) {
   return (
-    <ButtonPrimitive
+    <button
+      type="button"
       data-slot="button"
       data-loading={loading || undefined}
       aria-busy={loading || undefined}

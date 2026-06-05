@@ -43,6 +43,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} block-full antialiased`}
+      // GluestackUIProvider's inline <script> sets color-scheme on <html> before
+      // React hydrates, causing an intentional attribute mismatch. Standard fix:
+      // https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors
+      suppressHydrationWarning
     >
       <body className="min-block-full flex flex-col">
         <GluestackUIProvider mode="light">
