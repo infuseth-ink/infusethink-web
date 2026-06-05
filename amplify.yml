@@ -1,6 +1,7 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: apps/web
+    frontend:
       phases:
         preBuild:
           commands:
@@ -11,16 +12,11 @@ applications:
         build:
           commands:
             - pnpm exec turbo build --filter=infusethink-web
-            - cp -r public .next/standalone/apps/web/public
-            - cp -r .next/static .next/standalone/apps/web/.next/static
-            - echo "require('./apps/web/server.js')" > .next/standalone/server.js
-            - cp .next/required-server-files.json .next/standalone/
       artifacts:
-        baseDirectory: .next/standalone
+        baseDirectory: .next
         files:
           - '**/*'
       cache:
         paths:
           - .pnpm-store/**/*
           - .next/cache/**/*
-    appRoot: apps/web
