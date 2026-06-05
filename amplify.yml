@@ -14,6 +14,7 @@ applications:
             - cp -r public .next/standalone/apps/web/public
             - cp -r .next/static .next/standalone/apps/web/.next/static
             - echo "require('./apps/web/server.js')" > .next/standalone/server.js
+            - cp .next/required-server-files.json .next/standalone/
       artifacts:
         baseDirectory: .next/standalone
         files:
