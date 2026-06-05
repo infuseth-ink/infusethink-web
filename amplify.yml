@@ -11,8 +11,11 @@ applications:
         build:
           commands:
             - pnpm exec turbo build --filter=infusethink-web
+            - cp -r public .next/standalone/apps/web/public
+            - cp -r .next/static .next/standalone/apps/web/.next/static
+            - echo "require('./apps/web/server.js')" > .next/standalone/server.js
       artifacts:
-        baseDirectory: .next
+        baseDirectory: .next/standalone
         files:
           - '**/*'
       cache:
