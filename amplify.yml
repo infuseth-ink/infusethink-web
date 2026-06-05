@@ -6,11 +6,11 @@ applications:
           commands:
             - corepack enable
             - corepack prepare pnpm@10.29.3 --activate
-            - pnpm config set store-dir .pnpm-store
+            - pnpm config set store-dir "$PWD/.pnpm-store"
             - pnpm install --frozen-lockfile
         build:
           commands:
-            - pnpm --filter infusethink-web build
+            - pnpm exec turbo build --filter=infusethink-web
       artifacts:
         baseDirectory: .next
         files:
