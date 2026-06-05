@@ -70,10 +70,14 @@ module.exports = {
         // Function form emits valid rgba() instead. Remove when upgrading to TW4,
         // which uses color-mix() and accepts any valid CSS color format.
         'brand-green': ({ opacityValue }) =>
-          opacityValue !== undefined ? `rgba(71,144,95,${opacityValue})` : 'var(--brand-green)',
+          opacityValue !== undefined
+            ? `rgba(var(--brand-green-rgb),${opacityValue})`
+            : 'var(--brand-green)',
         'brand-green-hover': 'var(--brand-green-hover)',
         'brand-gold': ({ opacityValue }) =>
-          opacityValue !== undefined ? `rgba(225,193,84,${opacityValue})` : 'var(--brand-gold)',
+          opacityValue !== undefined
+            ? `rgba(var(--brand-gold-rgb),${opacityValue})`
+            : 'var(--brand-gold)',
         'brand-gold-hover': 'var(--brand-gold-hover)',
         'brand-parchment': 'var(--brand-parchment)',
         success: 'var(--success)',

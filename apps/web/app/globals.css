@@ -6,9 +6,11 @@
 :root {
   /* Brand primitives */
   --brand-green: #47905f;
+  --brand-green-rgb: 71, 144, 95; /* rgba() companion for TW3 opacity modifiers */
   --brand-green-hover: #3d7e52;
   --brand-green-dark: #2f6341;
   --brand-gold: #e1c154;
+  --brand-gold-rgb: 225, 193, 84; /* rgba() companion for TW3 opacity modifiers */
   --brand-gold-hover: #d4b242;
   --brand-gold-dark: #c9a83d;
   --brand-parchment: #f6f0dd;
