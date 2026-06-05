@@ -150,6 +150,7 @@ function Button({
 }: ButtonProps) {
   return (
     <button
+      type="button"
       data-slot="button"
       data-loading={loading || undefined}
       aria-busy={loading || undefined}
