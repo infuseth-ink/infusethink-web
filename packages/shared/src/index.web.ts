@@ -1,4 +1,5 @@
 // Web entry point — used by apps/web for TypeScript type resolution.
+export { ONBOARDING_SLIDES } from './constants/onboarding-slides';
 // Next.js / webpack resolves .web.tsx extensions at bundle time;
 // tsc --noEmit needs this explicit entry so it sees web types instead of native.
 export { GluestackUIProvider } from './components/ui/gluestack-ui-provider/index.web';

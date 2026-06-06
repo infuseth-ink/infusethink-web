@@ -1,4 +1,5 @@
 export { GluestackUIProvider } from './components/ui/gluestack-ui-provider';
+export { ONBOARDING_SLIDES } from './constants/onboarding-slides';
 export { Button, ButtonText, ButtonSpinner, ButtonIcon, ButtonGroup } from './components/ui/button';
 export {
   Card,
