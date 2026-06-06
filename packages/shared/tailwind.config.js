@@ -2,6 +2,7 @@
 // Shared Tailwind v3 base config — consumed by apps/web and apps/mobile.
 // When migrating to gluestack v5, this becomes a global.css with NativeWind v5 preset.
 module.exports = {
+  darkMode: 'class',
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
