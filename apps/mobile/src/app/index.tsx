@@ -1,10 +1,11 @@
-import { Button, ButtonText, ONBOARDING_SLIDES } from '@infuseth-ink/shared-ui';
+import { FONTS, ONBOARDING_SLIDES } from '@infuseth-ink/shared-ui';
 import { Ionicons } from '@expo/vector-icons';
 import { useRef, useState } from 'react';
-import { Dimensions, FlatList, Text, View, ViewToken } from 'react-native';
+import { Dimensions, FlatList, Image, Pressable, Text, View, ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const BRAND_GOLD = '#e1c154';
+const HERO_BG = '#0d1f12';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function OnboardingScreen() {
@@ -18,7 +19,20 @@ export default function OnboardingScreen() {
   }).current;
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1" style={{ backgroundColor: HERO_BG }}>
+      <View className="flex-row items-center gap-2.5 px-6 py-3">
+        <Image
+          source={require('../../assets/images/logo.png')}
+          style={{ width: 36, height: 36, borderRadius: 8 }}
+        />
+        <Text
+          className="text-sm tracking-tight text-white"
+          style={{ fontFamily: FONTS.displaySemiBold }}
+        >
+          infuseth.ink
+        </Text>
+      </View>
+
       <FlatList
         ref={flatListRef}
         data={ONBOARDING_SLIDES}
@@ -31,10 +45,13 @@ export default function OnboardingScreen() {
         renderItem={({ item }) => (
           <View style={{ width: SCREEN_WIDTH }} className="flex-1 items-center justify-center px-8">
             <Ionicons name={item.icon as any} size={120} color={BRAND_GOLD} />
-            <Text className="mt-10 text-center text-2xl font-bold text-gray-900">
+            <Text
+              className="mt-10 text-center text-2xl text-white"
+              style={{ fontFamily: FONTS.display }}
+            >
               {item.tagline}
             </Text>
-            <Text className="mt-4 text-center text-base leading-relaxed text-gray-500">
+            <Text className="mt-4 text-center text-base leading-relaxed text-white/70">
               {item.description}
             </Text>
           </View>
@@ -47,14 +64,29 @@ export default function OnboardingScreen() {
             <View
               key={i}
               className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: i === activeIndex ? BRAND_GOLD : '#d1d5db' }}
+              style={{ backgroundColor: i === activeIndex ? BRAND_GOLD : 'rgba(255,255,255,0.2)' }}
             />
           ))}
         </View>
 
-        <Button className="rounded-full" onPress={() => {}}>
-          <ButtonText>Get started →</ButtonText>
-        </Button>
+        <View className="gap-3">
+          <Pressable
+            className="h-12 flex-row items-center justify-center rounded-full px-7"
+            style={{ backgroundColor: BRAND_GOLD }}
+            onPress={() => {}}
+          >
+            <Text className="text-xl font-bold" style={{ color: HERO_BG }}>
+              Start learning →
+            </Text>
+          </Pressable>
+
+          <Pressable
+            className="h-12 flex-row items-center justify-center rounded-full border border-white/50 bg-white/10 px-7"
+            onPress={() => {}}
+          >
+            <Text className="text-xl font-semibold text-white">Start teaching</Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
