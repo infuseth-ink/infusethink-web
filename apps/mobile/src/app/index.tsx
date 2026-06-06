@@ -1,11 +1,14 @@
 import { FONTS, ONBOARDING_SLIDES } from '@infuseth-ink/shared-ui';
 import { Ionicons } from '@expo/vector-icons';
-import { useRef, useState } from 'react';
+import { useRef, useState, type ComponentProps } from 'react';
 import { Dimensions, FlatList, Image, Pressable, Text, View, ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+type IoniconsName = ComponentProps<typeof Ionicons>['name'];
+
 const BRAND_GOLD = '#e1c154';
 const HERO_BG = '#0d1f12';
+// portrait-locked (app.json orientation: portrait) — safe as module-level constant
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function OnboardingScreen() {
@@ -44,7 +47,7 @@ export default function OnboardingScreen() {
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
         renderItem={({ item }) => (
           <View style={{ width: SCREEN_WIDTH }} className="flex-1 items-center justify-center px-8">
-            <Ionicons name={item.icon as any} size={120} color={BRAND_GOLD} />
+            <Ionicons name={item.icon as IoniconsName} size={120} color={BRAND_GOLD} />
             <Text
               className="mt-10 text-center text-2xl text-white"
               style={{ fontFamily: FONTS.display }}
@@ -73,7 +76,7 @@ export default function OnboardingScreen() {
           <Pressable
             className="h-12 flex-row items-center justify-center rounded-full px-7"
             style={{ backgroundColor: BRAND_GOLD }}
-            onPress={() => {}}
+            onPress={() => {}} // TODO: navigate to learn sign-up
           >
             <Text className="text-xl font-bold" style={{ color: HERO_BG }}>
               Start learning →
@@ -82,7 +85,7 @@ export default function OnboardingScreen() {
 
           <Pressable
             className="h-12 flex-row items-center justify-center rounded-full border border-white/50 bg-white/10 px-7"
-            onPress={() => {}}
+            onPress={() => {}} // TODO: navigate to teach sign-up
           >
             <Text className="text-xl font-semibold text-white">Start teaching</Text>
           </Pressable>

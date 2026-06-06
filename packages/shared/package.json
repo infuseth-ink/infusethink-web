@@ -20,6 +20,7 @@
     "react-native": ">=0.64.0"
   },
   "devDependencies": {
+    "@expo-google-fonts/fraunces": "^0.3.0",
     "@types/react": "^19.2.15",
     "expo-font": "^13",
     "nativewind": "^4",
@@ -27,7 +28,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@expo-google-fonts/fraunces": "^0.3.0",
     "@gluestack-ui/core": "^3.0.21",
     "@gluestack-ui/utils": "^3.0.21"
   }
