@@ -75,4 +75,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: app-preview
-          path: apps/mobile/*.apk
+          path: apps/mobile/**/*.apk
+          if-no-files-found: error
