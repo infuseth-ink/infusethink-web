@@ -20,16 +20,16 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 2
-      - uses: dorny/paths-filter@v3
+      - name: Detect changed paths
         id: filter
-        with:
-          filters: |
-            mobile:
-              - 'apps/mobile/**'
-              - 'packages/**'
-              - 'turbo.json'
-              - 'package.json'
-              - 'pnpm-lock.yaml'
+        run: |
+          set -euo pipefail
+          CHANGED=$(git diff --name-only HEAD~1 HEAD)
+          if echo "$CHANGED" | grep -qE '^(apps/mobile/|packages/|turbo\.json|package\.json|pnpm-lock\.yaml)'; then
+            echo "mobile=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "mobile=false" >> "$GITHUB_OUTPUT"
+          fi
 
   build:
     needs: changes
