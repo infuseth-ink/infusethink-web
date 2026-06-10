@@ -27,6 +27,9 @@ jobs:
             mobile:
               - 'apps/mobile/**'
               - 'packages/**'
+              - 'turbo.json'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
 
   build:
     needs: changes

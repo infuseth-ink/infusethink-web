@@ -27,6 +27,9 @@ jobs:
             web:
               - 'apps/web/**'
               - 'packages/**'
+              - 'turbo.json'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
 
   deploy:
     needs: changes
