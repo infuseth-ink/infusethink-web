@@ -26,16 +26,33 @@ jobs:
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.issue.number }}
-            Please review this pull request. This is a Next.js frontend project. Focus on:
+            Please review this pull request. This is a pnpm + Turborepo monorepo
+            with two apps:
+            - apps/web — Next.js + Gluestack UI (web)
+            - apps/mobile — Expo (React Native)
+            Focus on:
             - Correctness: logic bugs, broken edge cases, missing error boundaries
-            - Next.js specifics: correct use of Server vs Client Components, data fetching patterns (fetch caching, revalidation), proper use of metadata API, route handlers, and middleware
-            - React: unnecessary re-renders, missing keys, stale closures, improper hook usage
-            - Accessibility: missing ARIA attributes, poor keyboard navigation, inadequate color contrast
-            - Performance: large bundle imports, missing next/image or next/font, layout shift causes
+            - Next.js specifics (apps/web): correct use of Server vs Client Components,
+              data fetching patterns (fetch caching, revalidation), proper use of
+              metadata API, route handlers, and middleware
+            - Expo/React Native specifics (apps/mobile): correct platform APIs, navigation
+              patterns, StyleSheet usage, and avoiding web-only APIs
+            - Gluestack UI: correct token usage, theme consistency, avoiding inline styles
+              where a token exists
+            - React: unnecessary re-renders, missing keys, stale closures,
+              improper hook usage
+            - Shared packages (packages/**): changes here affect both apps — flag any
+              web-only or native-only assumptions that would break the other target
+            - Accessibility: missing ARIA attributes (web) or accessibilityLabel/role
+              (native), poor keyboard navigation, inadequate color contrast
+            - Performance: large bundle imports, missing next/image or next/font (web),
+              FlatList vs ScrollView misuse (native), layout shift causes
             - Type safety: unsafe `any` casts, missing null checks at data boundaries
-            - Security: XSS vectors, exposed secrets, unvalidated user input rendered as HTML
+            - Security: XSS vectors, exposed secrets, unvalidated user input
+              rendered as HTML
             Use `gh pr comment` for top-level feedback.
-            Use `mcp__github_inline_comment__create_inline_comment` (with `confirmed: true`) to highlight specific code issues.
+            Use `mcp__github_inline_comment__create_inline_comment`
+              (with `confirmed: true`) to highlight specific code issues.
             Only post GitHub comments - don't submit review text as messages.
           claude_args: |
             --model claude-sonnet-4-6
