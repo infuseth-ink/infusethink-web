@@ -8,13 +8,37 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    name: Deploy to Amplify (staging)
-    runs-on: ubuntu-latest
-    environment: staging
+  changes:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            web:
+              - 'apps/web/**'
+              - 'packages/**'
+              - 'turbo.json'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
+
+  deploy:
+    needs: changes
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (needs.changes.result == 'success' && needs.changes.outputs.web == 'true')
+    name: Deploy to Amplify (staging)
+    runs-on: ubuntu-latest
+    environment: staging
     permissions:
       id-token: write
       contents: read
