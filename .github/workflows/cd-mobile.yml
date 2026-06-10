@@ -34,13 +34,20 @@ jobs:
       (needs.changes.result == 'success' && needs.changes.outputs.mobile == 'true')
     # TODO: add iOS once Apple Developer Program membership is acquired ($99/year);
     # free Apple ID has no developer team, EAS cannot provision iOS builds without it.
-    name: EAS Build (preview — APK)
+    name: Build APK (local)
     runs-on: ubuntu-latest
     environment: staging
     steps:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: android-actions/setup-android@v3
 
       - uses: pnpm/action-setup@v4
 
@@ -59,4 +66,9 @@ jobs:
 
       - name: Build APK
         working-directory: apps/mobile
-        run: eas build --platform android --profile preview --non-interactive
+        run: eas build --local --platform android --profile preview --non-interactive
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-preview
+          path: apps/mobile/*.apk
